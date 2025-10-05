@@ -1,4 +1,4 @@
-Video Intro Link: https://www.youtube.com/watch?v=sOcqGyd9ub0
+Video Intro Link: https://youtu.be/QT1EV0qioWU?si=cDrR8QAj91-UuEuv
 
 Video Tutorial Link: https://www.youtube.com/watch?v=uv65AvVUm2Y
 
