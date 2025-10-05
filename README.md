@@ -1,4 +1,5 @@
 Video Intro Link: https://www.youtube.com/watch?v=sOcqGyd9ub0
+Video Tutorial Link: https://www.youtube.com/watch?v=uv65AvVUm2Y
 
 Submission folder link (Included exe file, and .rar file as backup): https://drive.google.com/drive/folders/1Q11JcIyWO5XKOFmcOF2qK4RO4JrGVYM1?usp=sharing
 
