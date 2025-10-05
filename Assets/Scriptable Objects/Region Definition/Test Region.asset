@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbcb95cee41461c448a9abd4115cedbb, type: 3}
+  m_Name: Test Region
+  m_EditorClassIdentifier: 
+  displayName: Sibu
+  regionType: 0
+  availableCrops:
+  - {fileID: 11400000, guid: 584b1bfbac58a08468d0315e197e81ee, type: 2}
+  - {fileID: 11400000, guid: a5bb0d57926ab5242919e1c4e584311b, type: 2}
+  - {fileID: 11400000, guid: dae04d12a483af84ba75ea1dcfeb4e0e, type: 2}
+  - {fileID: 11400000, guid: 2de51f4d3ffec884b9d0b89b94bbe7d9, type: 2}
+  - {fileID: 11400000, guid: 47d4c9fdf1883e244924e1af6d5c94ef, type: 2}
+  - {fileID: 11400000, guid: a2b63c1f85502ce40ace4d25034ca06c, type: 2}
+  - {fileID: 11400000, guid: d69d5caa7455bb74087ab69f9ff2fd27, type: 2}
+  dominantSoilTexture: 1
+  irrigationEfficiencyModifier: 1
+  etBias: 0

@@ -1,0 +1,87 @@
+Farm From Space — GDD (Lean Gold Economy, Region-as-Location)
+Turn‑based 2.5D Crops • NASA Space Apps • Gold = Budget & Score • Buyable Plots
+Revision: 2025‑10‑04 — Simplified Gold-only economy, added Buy Plot, clarified Region-as-Location (run bound to chosen place).
+1) Region-as-Location (Run Scope)
+Select a specific place (e.g., Sibu) that belongs to a climate region (e.g., Monsoon). The run is confined to that location and reflects its region’s patterns (rain frequency, ET tendencies, NDVI cadence).
+Examples:
+• Monsoon: Sibu (Malaysia), Khulna (Bangladesh)
+• Semi‑Arid Steppe: Dodoma (Tanzania), Jodhpur (India)
+• Temperate Continental: Debrecen (Hungary), Fargo (USA)
+2) High-Level Loop (20 weeks, ~5 months)
+• Pick location; region traits applied.
+• Start with 2 plots; choose region crops; pay planting costs from starting Gold.
+• Each week: review Data Card (Rain/Soil/Stage/ET with Resolution & Cadence chips), spend Gold on any actions, resolve outcomes.
+• End: auto-harvest; Final score = Harvest Gold + Unspent Gold.
+3) Economy (Gold-only, No Action Points)
+• Gold is both budget and score.
+• Multiple actions per week allowed if affordable.
+• Two simple brakes prevent spam/snowball (see §6).
+Starting Gold: 60 (tuneable)
+4) Actions & Costs (Simple, Teachable)
+• Buy Plot: 60 → 75 → 95 → 120… (+25% each purchase this run)
+• Plant Crop (per plot, once/season): Rice 18 / Maize 15 / Sorghum 12 / Wheat 14
+• Irrigate (per plot): +10 mm for 5 Gold (multiple uses; see brakes)
+• Apply Nitrogen (per plot): 8 Gold; at most 2× per plot per season (N‑A and N‑B)
+• Scout Data (region): 3 Gold; tightens next week’s rain range; reveals a delayed stage for one plot
+5) NASA Data (Player-Facing Abstractions)
+• Rain (IMERG): None / Light / Heavy. Cadence ~30 min. Resolution ~10 km.
+• Soil Moisture (SMAP): Dry / OK / Wet (regional baseline). Resolution ~9–36 km.
+• Stage (NDVI/MODIS/VIIRS): Estab / Green‑up / Peak / Senescence. Cadence ~16‑day (updates ~every 2 weeks).
+• ET (POWER): Low / Medium / High (weekly water use).
+Each layer UI shows Resolution & Cadence chips to teach dataset limits.
+6) Two Simple Brakes (Teach Timing, Prevent Spam)
+• Diminishing Irrigation (per plot, per week): 1st = full effect; 2nd = −30%; 3rd+ = −60%.
+• Wet-Risk Penalties (per plot): Soil ≥ 85% and adding water → Runoff (−3 Gold now). Soil ≥ 85% and applying N → Leaching (−5 Gold next week).
+7) Under-the-Hood Numbers (Defaults)
+Water: Soil_{t+1} = clamp(Soil_t + Rain + Irrigation − ET, 0..100)
+• Class values: Rain None=0, Light=10, Heavy=25; ET Low=8, Med=12, High=16; Irrigate=+10.
+• Soil cap: 100.
+• N timing multipliers (apply to N effect): Estab 0.8×, Green‑up 1.3×, Peak 1.1×, Senescence 0.6×.
+• Runoff trigger: Soil ≥ 85 when adding water → −3 Gold immediately.
+• Leaching: Soil ≥ 85 when applying N → −5 Gold next week.
+• Harvest: Sum weekly Growth Points; 1 GP = 1 Gold at season end.
+8) Regions & Crop Pools (Bound to Location)
+Monsoon (e.g., Sibu)
+Crops:
+• Rice
+• Maize
+Play tips:
+• More Heavy rain weeks
+• NDVI delays possible (clouds)
+• Avoid N on Wet; let rain do irrigation
+Semi‑Arid Steppe (e.g., Dodoma)
+Crops:
+• Sorghum/Millet
+• Maize
+Play tips:
+• High ET common
+• Light/None rain frequent
+• Irrigate earlier; N only if not Dry
+Temperate Continental (e.g., Debrecen)
+Crops:
+• Wheat
+• Maize
+Play tips:
+• Reliable stages
+• Minor early cold snap
+• Timing > volume; hit Green‑up with N
+9) Plot Purchasing (Simple Flow)
+• Buy any week if you have Gold.
+• Planting cutoff (e.g., Week ≤ 4): buying after cutoff risks an unplanted plot.
+• Escalating cost (+25%) naturally caps expansion.
+10) UI/UX (Minimal, Data-First)
+• Top: Location name, Region tag, Week counter.
+• Left: Data Card with layer toggles + Resolution/Cadence chips.
+• Center: 2.5D board (sprites in 3D). Selected plot shows soil %, stage, icons.
+• Right: Actions with costs and an ‘Expected Effect’ hint.
+• Bottom: Gold balance and projected harvest.
+11) NASA Alignment
+• Data drives actions: Rain/Soil/Stage/ET → when to irrigate or fertilize.
+• Limitations surfaced: Resolution & Cadence chips teach proper use of datasets.
+• Uncertainty management: Scout gives small info boost; waiting is valid.
+• Approachability: 5 actions, two brakes, small numbers.
+12) Implementation Notes (2.5D Path A)
+• URP 3D; camera tilt 25–35°; raycast selection.
+• Tile tint by data via MaterialPropertyBlocks.
+• NDVI updates every ~2 turns to reflect 16‑day composites.
+• Keep shadows minimal; prioritize data color readability.

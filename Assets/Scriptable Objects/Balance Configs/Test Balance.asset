@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcc48f9d3f7e1145b4c57e4bf639370, type: 3}
+  m_Name: Test Balance
+  m_EditorClassIdentifier: 
+  startingGold: 1000
+  irrigationCost: 5
+  nitrogenPartACost: 8
+  nitrogenPartBCost: 8
+  basePlotCost: 50
+  plotCostMultiplier: 1.25
+  runoffPenalty: 3
+  goldLeachingPenalty: 5
+  secondIrrigationEfficiency: 0.7
+  thirdPlusIrrigationEfficiency: 0.4
+  fieldCapacityBySoilTexture:
+  - 0.3
+  - 0.4
+  - 0.5
+  runoffThreshold: 0.8
+  baseIrrigationEfficiency: 0.8
+  etLinearCoefficients: {x: 0.1, y: 0.02, z: 5}
+  consecutiveIrrigationPenalty: 0.9
+  stageMultipliers:
+  - 0.8
+  - 1.2
+  - 1.5
+  - 0.9
+  splitNitrogenBonus: 0.1
+  leachingPenalty: 0.1
+  maxPlotsPerRegion: 9
+  region2UnlockCost: 250
+  region3UnlockCost: 500
+  marginalSuitabilityMultiplier: 0.8
+  poorSuitabilityMultiplier: 0.6
+  cropFailureRefund: 0.5

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3e4fe9e4f1c5e409f91962f79c6899, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  displayName: Carrot
+  cropIcon: {fileID: 21300000, guid: 1faaf3fb10762e74d8bac911d027ff10, type: 3}
+  growthSprites:
+  - {fileID: 21300000, guid: 8751f40659636a34d89474031604a8c6, type: 3}
+  - {fileID: 21300000, guid: b6ef68ea047083d4c9f64d5dd23124b2, type: 3}
+  - {fileID: 21300000, guid: 3963f0593c27c86408fe14999b774ff7, type: 3}
+  - {fileID: 21300000, guid: c363d50cc94cef340abd203dffbd26c7, type: 3}
+  - {fileID: 21300000, guid: 141eff2330a8bef4fb1c5c838ebe94f5, type: 3}
+  stageMultipliersOverride: []
+  plantingCost: 3
+  baseWeeklyGrowth: 6
+  optimalSoilWater: 0.6
+  waterDeficitSensitivity: 1.2
+  splitNBonusOverride: 0
+  maturityTarget: 60
+  maxAgeWeeks: 20
+  monsoonSuitability: 1
+  steppeSuitability: 0
+  temperateSuitability: 0

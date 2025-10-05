@@ -1,0 +1,89 @@
+Farm From Space — GDD (Endless Mode, Multi-Region, Gold-Only)
+NASA Space Apps • Turn-based 2.5D • Regions Unlock with Gold • Universal Crops + Suitability • Plots 2→9
+Revision: 2025-10-04 — Overhauls applied: 3 regions with unlock costs, universal crop list with suitability, endless weeks, per-plot cycles, Gold-only actions, plots 2→9, multi-region play with synced time. Removed bonus challenges.
+1) Meta Map & Regions (Unlock Progression)
+• Three selectable locations on a world map (examples): Sibu (Monsoon), Dodoma (Semi-Arid Steppe), Debrecen (Temperate Continental).
+• Region 1 is unlocked by default. Region 2 and Region 3 require a one-time Gold unlock.
+• Suggested unlock costs (tune later): Region 2 → 250 Gold, Region 3 → 500 Gold.
+• Preview panel for locked regions: show typical Rain/ET patterns and “Data Chips” (Resolution/Cadence).
+2) Universal Crops & Suitability (Teach Right Crop, Right Place)
+One global crop list usable in any region: Rice, Maize, Sorghum/Millet, Wheat, Soy (tune list as needed).
+At plant time, show a Suitability meter (Good / Marginal / Poor) based on region climate patterns (Rain & ET) vs crop needs.
+Outcomes:
+ – Good: normal growth and standard water/N responses.
+ – Marginal: −20% growth rate; stronger sensitivity to water and timing mistakes.
+ – Poor: seedling may fail within ~2–3 weeks unless conditions are compensated (e.g., sustained irrigation). On fail, refund 50% of planting cost.
+Purpose: lets players experiment without opaque punishment while reinforcing crop–region suitability.
+3) Endless Time & Weekly Tick
+• No fixed season limit. The game advances in weekly turns indefinitely.
+• The Data Card updates weekly: Rain (IMERG) & ET (POWER) are weekly; NDVI stage display updates ~every 2 weeks to reflect 16‑day composites.
+• Each crop follows its own cycle to maturity (see §4).
+4) Per-Plot Crop Cycles (Plant → Manage → Harvest → Replant)
+Each plot runs independently:
+  1) Plant (pay planting cost).
+  2) Manage water (irrigation) and apply at most two nitrogen doses (N‑A and N‑B) at timing windows (Green-up / Peak).
+  3) Harvest automatically upon reaching Maturity Growth Points (GP). The plot becomes empty.
+  4) Replant anytime (planting cutoff removed in endless mode).
+Example Maturity GP targets (tune later): Sorghum 80, Maize 100, Rice 110, Wheat 95, Soy 100.
+5) Gold-Only Economy (Budget = Score)
+Start Gold: 60 (tune). All actions spend Gold; there are no action points.
+Costs (defaults):
+ – Plant (per plot): Rice 18 / Maize 15 / Sorghum 12 / Wheat 14 / Soy 16.
+ – Irrigate (per plot): +10 mm water for 5 Gold (multiple uses allowed; see §7 brakes).
+ – Nitrogen (per plot): 8 Gold each dose; max 2× per crop cycle (N‑A and N‑B).
+ – Scout Data (region): 3 Gold (narrows next week rain range; reveals stage if NDVI delayed).
+Harvest converts Growth Points to Gold (starter mapping: 1 GP = 1 Gold).
+6) Plots per Region (Start 2 → Max 9)
+• Each region starts with 2 plots; cap is 9 per region.
+• Buy Plot costs escalate per region (suggested): 60 → 75 → 95 → 120 → 150 → 190 → 240 → 300 → 375 Gold.
+• No upkeep fees. Escalation alone moderates expansion pace.
+7) Multi-Region Play & Synced Global Week
+• When you end a week in any region, all regions advance one week (global synced clock).
+• You can jump between unlocked regions any time during the week to perform actions; resolve once when ready.
+• Each region saves its own state: plots (soil %, planted crop & age, N‑A/N‑B weeks), Gold, last NDVI update, pending penalties (e.g., leaching next week).
+8) NASA Data & Player-Facing Abstractions
+Data Card layers and their teaching chips:
+ – Rain (IMERG): None / Light / Heavy. Cadence ~30 min; Resolution ~10 km.
+ – Soil Moisture (SMAP): Dry / OK / Wet (regional baseline). Resolution ~9–36 km.
+ – Stage (NDVI from MODIS/VIIRS): Estab / Green‑up / Peak / Senescence; display updates ~every 2 weeks (16‑day composite).
+ – ET (POWER): Low / Medium / High weekly water demand.
+UI shows Resolution and Cadence chips on each layer to teach dataset limits.
+9) Water & Nitrogen (Per‑Plot, Timing‑Centric)
+Soil Tank (per plot): 0–100% proxy for root‑zone moisture. Weekly update: Soil_next = clamp(Soil + Rain + Irrigation − ET, 0..100).
+Sweet spot for growth: ~40–80% soil. Below is Dry (underperform); above is Wet (risk).
+Irrigation diminishing returns (per plot, per week): 1st = full effect; 2nd = −30%; 3rd+ = −60%.
+Runoff penalty: if Soil ≥ 85% and net water added (rain + irrigation), immediate −3 Gold on that plot’s week.
+Nitrogen (split): per plot, at most two applications per cycle (N‑A and N‑B).
+ – Stage multipliers (applied on the weeks N is used): Estab 0.8×, Green‑up 1.3×, Peak 1.1×, Senescence 0.6×.
+ – Leaching penalty: if Soil ≥ 85% when you apply N, −5 Gold next week for that plot.
+ – Split bonus: if A & B were applied in different weeks and both during active stages (Green‑up/Peak), add +10% yield effect (tune).
+10) UI/UX Minimalism (Data-First, Low Overhead)
+• Top bar: Location name, Region tag, Week counter, Global Gold balance.
+• Left: Data Card with toggles + Resolution/Cadence chips.
+• Center: 2.5D board (sprites in 3D). Selected plot card shows Soil %, Stage, crop icon, Suitability at plant.
+• Right: Action list with costs and simple “Expected Effect” hint (e.g., ‘Runoff risk: Medium’).
+• Region Switcher: tab or mini-map to jump between unlocked farms before resolving the week.
+11) Save Model & Tech Notes (2.5D Path A)
+• Per‑region save blob: plots[], regionGold, lastNdviUpdateWeek, pendingPenalties[]. Global: unlockedRegions[], currentWeek.
+• URP 3D with sprites in 3D; camera tilt 25–35°. Raycast selection; tile tint via MaterialPropertyBlocks.
+• NDVI display updates every ~2 weeks; internally, crop age advances weekly so harvest timing is consistent.
+• Keep materials simple; prioritize readability over shadows.
+12) Tuning Table
+Parameter	Default	Notes
+Start Gold	60	Opening budget
+Region Unlocks	R2: 250 • R3: 500	One-time cost; preview panel before buy
+Buy Plot sequence	60,75,95,120,150,190,240,300,375	Per region; cap 9 plots
+Plant costs	Rice 18 • Maize 15 • Sorghum 12 • Wheat 14 • Soy 16	Per plot per cycle
+Irrigate	+10 mm for 5 Gold	Diminishing per plot/week (1.0/0.7/0.4)
+Nitrogen A/B	8 Gold each	Max 2× per plot per cycle
+N stage multipliers	0.8 / 1.3 / 1.1 / 0.6	Estab / Green‑up / Peak / Senescence
+Runoff penalty	−3 Gold	If Soil ≥85% and net water added
+Leaching penalty	−5 Gold next week	If Soil ≥85% when applying N
+Split bonus	+10%	A & B different weeks, both active stages
+Harvest mapping	1 GP = 1 Gold	Convert at harvest
+13) Example Flow (Sibu, Monsoon)
+• Start in Sibu with 2 plots and 60 Gold. Plant Rice (18) on Plot A and Maize (15) on Plot B.
+• Week 3: Rain=Heavy, SMAP=Wet, ET=Medium. Skip irrigation; do not apply N (avoid leaching).
+• Week 5: NDVI shows Green‑up on Plot B; Soil=OK; Rain=Light → Apply N‑A (8) on Plot B.
+• Week 7: Plot B near Peak; Soil=OK; ET=High → Apply N‑B (8) on Plot B. Irrigate once (5) if Dry.
+• Harvests occur when crops hit their GP targets; replant and continue. Unlock a second region when you can afford it and hop between farms before resolving the week.

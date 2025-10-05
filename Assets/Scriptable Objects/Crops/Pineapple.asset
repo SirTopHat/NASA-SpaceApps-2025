@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a3e4fe9e4f1c5e409f91962f79c6899, type: 3}
+  m_Name: Pineapple
+  m_EditorClassIdentifier: 
+  displayName: Pineapple
+  cropIcon: {fileID: 21300000, guid: 6a2d62cec445151449559572f0f6bbde, type: 3}
+  growthSprites:
+  - {fileID: 21300000, guid: 9d8c883df66a4034da20e8d551251158, type: 3}
+  - {fileID: 21300000, guid: 32cd661281f51a44dbd580155a59e089, type: 3}
+  - {fileID: 21300000, guid: cc6c90b01e2f02a4bbb0effedc44b465, type: 3}
+  - {fileID: 21300000, guid: 87933bfd07b25ee479bb3c13b5910dc5, type: 3}
+  - {fileID: 21300000, guid: 27f125dd0d4a76a458769ef2f645eaff, type: 3}
+  stageMultipliersOverride: []
+  plantingCost: 7
+  baseWeeklyGrowth: 5
+  optimalSoilWater: 0.5
+  waterDeficitSensitivity: 0.9
+  splitNBonusOverride: 0
+  maturityTarget: 50
+  maxAgeWeeks: 20
+  monsoonSuitability: 0
+  steppeSuitability: 1
+  temperateSuitability: 1
